@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "node droppy.js start",
+    "build_cache": "node ./server/load_cache.js",
     "test": "make test"
   },
   "dependencies": {
