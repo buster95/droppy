@@ -3,13 +3,13 @@ LABEL maintainer="silverwind"
 
 # Copy files
 WORKDIR /droppy
-COPY dist ./dist
 COPY client ./client
 COPY server ./server
 COPY ["droppy.js", "docker-start.sh", "README.md", "LICENSE", "package.json", "./"]
 
 # Installing NodeJS Dependencies
 RUN yarn install
+RUN yarn build_cache
 
 # Install build dependencies and and build modules
 RUN cd /droppy && \
@@ -22,13 +22,13 @@ RUN cd /droppy && \
   ln -s /files /root/.droppy/files && \
   ln -s /droppy/droppy.js /usr/bin/droppy && \
   rm -rf \
-    /root/.config \
-    /root/.node-gyp \
-    /root/.npm \
-    /tmp/* \
-    /usr/lib/node_modules \
-    /usr/local/lib/node_modules \
-    /usr/local/share/.cache
+  /root/.config \
+  /root/.node-gyp \
+  /root/.npm \
+  /tmp/* \
+  /usr/lib/node_modules \
+  /usr/local/lib/node_modules \
+  /usr/local/share/.cache
 
 EXPOSE 8989
 VOLUME ["/config", "/files"]
