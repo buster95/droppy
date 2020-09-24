@@ -2,11 +2,14 @@ FROM node:alpine
 LABEL maintainer="silverwind"
 
 # Copy files
-COPY ["node_modules", "/droppy/node_modules"]
-COPY ["client", "/droppy/client"]
-COPY ["server", "/droppy/server"]
-COPY ["dist", "/droppy/dist"]
-COPY ["droppy.js", "docker-start.sh", "README.md", "LICENSE", "package.json", "/droppy/"]
+WORKDIR /droppy
+COPY dist ./dist
+COPY client ./client
+COPY server ./server
+COPY ["droppy.js", "docker-start.sh", "README.md", "LICENSE", "package.json", "./"]
+
+# Installing NodeJS Dependencies
+RUN yarn install
 
 # Install build dependencies and and build modules
 RUN cd /droppy && \
