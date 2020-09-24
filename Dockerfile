@@ -1,5 +1,5 @@
 FROM node:alpine
-MAINTAINER silverwind
+LABEL maintainer="silverwind"
 
 # Copy files
 COPY ["node_modules", "/droppy/node_modules"]
